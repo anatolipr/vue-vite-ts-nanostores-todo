@@ -6,7 +6,7 @@ defineProps<{
   buttonText: number
 }>()
 
-const message :Ref<string> = inject<Ref<string>>('message')
+const message :Ref<string> | undefined = inject<Ref<string>>('message')
 
 function click() {
   w.value ++;
