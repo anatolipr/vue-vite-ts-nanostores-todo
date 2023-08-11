@@ -10,7 +10,9 @@ const message :Ref<string> | undefined = inject<Ref<string>>('message')
 
 function click() {
   w.value ++;
-  message.value = "xxx";
+  if (message) {
+    message.value = "xxx";
+  }
 }
 
 
