@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nanostores/vue": "^0.10.0",
+    "nanostores": "^0.9.3",
     "vue": "^3.3.4"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {w} from './re.ts'
 import {inject, Ref} from "vue";
+import {addUser} from "../store/users.ts";
 
 defineProps<{
   buttonText: number
@@ -13,6 +14,12 @@ function click() {
   if (message) {
     message.value = "xxx";
   }
+
+  addUser({
+    isAdmin:true,
+    username:"foo"
+  })
+
 }
 
 
