@@ -32,6 +32,10 @@ export function removeTodoList(listIndex: number) {
 
 }
 
+export function setTodoListName(listIndex: number, name: string): void {
+   $todo.setKey(`todoLists[${listIndex}].name`, name);
+}
+
 
 /**
  * add todo to a todo list
