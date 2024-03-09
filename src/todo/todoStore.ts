@@ -64,4 +64,11 @@ export function removeTodoItem(listIndex: number, todoItemIndex: number): void {
 
 }
 
+export function setTodoItemValue(listIndex: number, todoItemIndex: number, value: string) {
+    $todo.setKey(`todoLists[${listIndex}].todoItems[${todoItemIndex}].value`, value);
+}
+
+export function setTodoItemChecked(listIndex: number, todoItemIndex: number, completed: boolean) {
+    $todo.setKey(`todoLists[${listIndex}].todoItems[${todoItemIndex}].completed`, completed);
+}
 
