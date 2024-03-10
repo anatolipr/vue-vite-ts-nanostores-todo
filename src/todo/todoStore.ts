@@ -9,6 +9,9 @@ export const $todo: DeepMapStore<TodoMain> = deepMap<TodoMain>({
     todoLists: []
 })
 
+
+//***** Lists ******
+
 export function addTodoList(name: string): void {
 
     const newTodoList: TodoList = {
@@ -16,9 +19,16 @@ export function addTodoList(name: string): void {
         _rev: 'a',
         createdTime: getCurrentEpoch(),
         name,
-        todoItems: []
+        todoItems: [
+            {
+                completed: false,
+                completedTime: undefined,
+                createdTime: getCurrentEpoch(),
+                value: 'ddsnsns'
+            }
+        ]
     }
-    
+
     $todo.setKey('todoLists', 
         [...$todo.get().todoLists, newTodoList]);
 
@@ -36,6 +46,8 @@ export function setTodoListName(listIndex: number, name: string): void {
    $todo.setKey(`todoLists[${listIndex}].name`, name);
 }
 
+
+//***** Lists -> TODOs ******
 
 /**
  * add todo to a todo list
@@ -70,9 +82,11 @@ export function removeTodoItem(listIndex: number, todoItemIndex: number): void {
 
 export function setTodoItemValue(listIndex: number, todoItemIndex: number, value: string) {
     $todo.setKey(`todoLists[${listIndex}].todoItems[${todoItemIndex}].value`, value);
+
+    $todo.set({...$todo.get()})
 }
 
-export function setTodoItemChecked(listIndex: number, todoItemIndex: number, completed: boolean) {
+export function setTodoItemCompleted(listIndex: number, todoItemIndex: number, completed: boolean) {
     $todo.setKey(`todoLists[${listIndex}].todoItems[${todoItemIndex}].completed`, completed);
 }
 
