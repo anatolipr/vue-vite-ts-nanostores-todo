@@ -3,14 +3,13 @@
     import { addTodo, removeTodoItem, clearTodoItems,
     setTodoListNewValue, removeTodoList, setTodoItemCompleted,
     updateTodoItemName, updateTodoListName } from '../todo/todoStore';
-    
+
         import { TodoList } from '../todo/todoTypes';
 
         const props = defineProps<{
             idx: number,
             todo: TodoList
         }>()
-
 </script>
 
 <template
@@ -20,7 +19,7 @@
             style="display: flex; align-items: center; justify-content: center">
             <div
                 style="font-size: 31px; flex: 1"
-                @click="updateTodoListName(idx)">
+                @click="() => updateTodoListName(props.idx)">
                 {{ todo.name }}
             </div>
             <div
@@ -48,17 +47,15 @@
                 <input
                     style="width: 33px; height: 34px; border: 1px solid gray; background-color: black!important"
                     type="checkbox"
-                    :checked="td.completed"
-                    @input="(e) => setTodoItemCompleted(idx, tdidx, e.target.checked)" />
-                <div
-                    style="flex: 1"
-                    @click="() => updateTodoItemName(idx, tdidx)">
+                    @input="(e) => setTodoItemCompleted(idx, tdidx, e.target.checked)"
+                    :checked="td.completed" />
+                <div style="flex: 1" @click="updateTodoItemName(idx, tdidx)">
                     {{ td.value }}
                 </div>
                 <div
                     style="width: 20px; height: 20px"
                     class="trash-icon"
-                    @click="removeTodoItem(idx, tdidx)"></div>
+                    @click="() => removeTodoItem(idx, tdidx)"></div>
             </div>
         </div>
         <div style="gap: 10px; display: flex">
@@ -71,7 +68,7 @@
             <button
                 style="width: 105px; height: 47px; border: 1px solid white; border-radius: 18px; background-color: #000000; display: flex; align-items: center; justify-content: center"
                 type="button"
-                @click="() => addTodo(idx)">
+                @click="() => addTodo(props.idx)">
                 Add
             </button>
         </div>
