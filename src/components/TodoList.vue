@@ -20,13 +20,13 @@
             style="display: flex; align-items: center; justify-content: center">
             <div
                 style="font-size: 31px; flex: 1"
-                @click="() => updateTodoListName(idx)">
+                @click="updateTodoListName(idx)">
                 {{ todo.name }}
             </div>
             <div
                 style="width: 34px; height: 34px"
                 class="trash-icon"
-                @click="() => removeTodoList(idx)"></div>
+                @click="removeTodoList(idx)"></div>
         </div>
         <div
             style="display: flex; align-items: center; justify-content: center">
@@ -36,7 +36,7 @@
             </div>
             <div
                 style="width: 46px; height: 25px; border: 1px solid gray; border-radius: 5px; background-color: #580000; display: flex; align-items: center; justify-content: center"
-                @click="() => clearTodoItems(idx)">
+                @click="clearTodoItems(idx)">
                 Clear
             </div>
         </div>
@@ -48,6 +48,7 @@
                 <input
                     style="width: 33px; height: 34px; border: 1px solid gray; background-color: black!important"
                     type="checkbox"
+                    :checked="td.completed"
                     @input="(e) => setTodoItemCompleted(idx, tdidx, e.target.checked)" />
                 <div
                     style="flex: 1"
@@ -57,7 +58,7 @@
                 <div
                     style="width: 20px; height: 20px"
                     class="trash-icon"
-                    @click="() => removeTodoItem(idx, tdidx)"></div>
+                    @click="removeTodoItem(idx, tdidx)"></div>
             </div>
         </div>
         <div style="gap: 10px; display: flex">
