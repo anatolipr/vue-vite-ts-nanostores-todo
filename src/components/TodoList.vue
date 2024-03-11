@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 
-    import { addTodo, removeTodoItem, clearTodoItems,
+    import { DeepReadonly } from 'vue';
+import { addTodo, removeTodoItem, clearTodoItems,
     setTodoListNewValue, removeTodoList, setTodoItemCompleted,
     updateTodoItemName, updateTodoListName } from '../todo/todoStore';
 
@@ -8,7 +9,7 @@
 
         const props = defineProps<{
             idx: number,
-            todo: TodoList
+            todo: DeepReadonly<TodoList>
         }>()
 </script>
 
@@ -47,7 +48,7 @@
                 <input
                     style="width: 33px; height: 34px; border: 1px solid gray; background-color: black!important"
                     type="checkbox"
-                    @input="(e) => setTodoItemCompleted(idx, tdidx, e.target.checked)"
+                    @input="(e) => setTodoItemCompleted(idx, tdidx, (<HTMLInputElement>e.target).checked)"
                     :checked="td.completed" />
                 <div style="flex: 1" @click="updateTodoItemName(idx, tdidx)">
                     {{ td.value }}
@@ -63,7 +64,7 @@
                 style="width: 208px; height: 47px; flex: 1"
                 class="text-input"
                 type="text"
-                @input="(e) => setTodoListNewValue(idx, e.target.value)"
+                @input="(e) => setTodoListNewValue(idx, (<HTMLInputElement>e.target).value)"
                 :value="todo.newValue" />
             <button
                 style="width: 105px; height: 47px; border: 1px solid white; border-radius: 18px; background-color: #000000; display: flex; align-items: center; justify-content: center"

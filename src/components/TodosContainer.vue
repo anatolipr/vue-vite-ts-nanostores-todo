@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-    import { $todo, addTodoList } from '../todo/todoStore';
+    import { DeepReadonly, Ref } from 'vue';
+import { $todo, addTodoList } from '../todo/todoStore';
+import { TodoMain } from '../todo/todoTypes';
     import TodoList from './TodoList.vue';
     import {useStore} from '@nanostores/vue';
 
-    const todo = useStore($todo)
+    const todo: DeepReadonly<Ref<TodoMain>>  = useStore($todo)
 </script>
 
 <template
