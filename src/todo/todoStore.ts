@@ -11,8 +11,11 @@ export const $todo: WritableAtom<TodoMain> = atom<TodoMain>({
 
 //***** Lists ******
 
-export function addTodoList(name: string = "Unnamed"): void {
+export function addTodoList(name: string = "Unnamed", shouldPrompt: boolean = false): void {
 
+    if (shouldPrompt) {
+        name = prompt('List name', name) || name;
+    }
     const newTodoList: TodoList = {
         _id: uuidv4(),
         _rev: 'a',
