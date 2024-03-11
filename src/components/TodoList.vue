@@ -1,19 +1,16 @@
 <script lang="ts" setup>
 
-    //import { computed } from 'nanostores';
-    import { $todo, addTodo, removeTodoItem, clearTodoItems,
+    import { addTodo, removeTodoItem, clearTodoItems,
     setTodoListNewValue, removeTodoList, setTodoItemCompleted,
     updateTodoItemName, updateTodoListName } from '../todo/todoStore';
-    import { useStore } from '@nanostores/vue';
-
+    
+        import { TodoList } from '../todo/todoTypes';
 
         const props = defineProps<{
-            idx: number
+            idx: number,
+            todo: TodoList
         }>()
 
-       // computed($todo, todo => todo.todoLists[props.idx].todoItems)
-
-        const todo = useStore($todo)
 </script>
 
 <template
@@ -23,23 +20,23 @@
             style="display: flex; align-items: center; justify-content: center">
             <div
                 style="font-size: 31px; flex: 1"
-                @click="() => updateTodoListName(props.idx)">
-                {{ todo.todoLists[props.idx].name }}
+                @click="() => updateTodoListName(idx)">
+                {{ todo.name }}
             </div>
             <div
                 style="width: 34px; height: 34px"
                 class="trash-icon"
-                @click="() => removeTodoList(props.idx)"></div>
+                @click="() => removeTodoList(idx)"></div>
         </div>
         <div
             style="display: flex; align-items: center; justify-content: center">
-            <div>{{ todo.todoLists[props.idx].stats.percent }}</div>
+            <div>{{ todo.stats.percent }}</div>
             <div style="font-size: 16px; text-align: center; flex: 1">
-                {{ todo.todoLists[props.idx].stats.unfinishedText }}
+                {{ todo.stats.unfinishedText }}
             </div>
             <div
                 style="width: 46px; height: 25px; border: 1px solid gray; border-radius: 5px; background-color: #580000; display: flex; align-items: center; justify-content: center"
-                @click="() => clearTodoItems(props.idx)">
+                @click="() => clearTodoItems(idx)">
                 Clear
             </div>
         </div>
@@ -47,20 +44,20 @@
             style="overflow: scroll; padding: 4px; border: 1px solid gray; border-radius: 5px; flex: 1">
             <div
                 style="gap: 5px; display: flex; align-items: center; justify-content: center"
-                v-for="(td, tdidx) in todo.todoLists[props.idx].todoItems">
+                v-for="(td, tdidx) in todo.todoItems">
                 <input
                     style="width: 33px; height: 34px; border: 1px solid gray; background-color: black!important"
                     type="checkbox"
-                    @input="(e) => setTodoItemCompleted(props.idx, tdidx, e.target.checked)" />
+                    @input="(e) => setTodoItemCompleted(idx, tdidx, e.target.checked)" />
                 <div
                     style="flex: 1"
-                    @click="() => updateTodoItemName(props.idx, tdidx)">
+                    @click="() => updateTodoItemName(idx, tdidx)">
                     {{ td.value }}
                 </div>
                 <div
                     style="width: 20px; height: 20px"
                     class="trash-icon"
-                    @click="() => removeTodoItem(props.idx, tdidx)"></div>
+                    @click="() => removeTodoItem(idx, tdidx)"></div>
             </div>
         </div>
         <div style="gap: 10px; display: flex">
@@ -68,12 +65,12 @@
                 style="width: 208px; height: 47px; flex: 1"
                 class="text-input"
                 type="text"
-                @input="(e) => setTodoListNewValue(props.idx, e.target.value)"
-                :value="todo.todoLists[props.idx].newValue" />
+                @input="(e) => setTodoListNewValue(idx, e.target.value)"
+                :value="todo.newValue" />
             <button
                 style="width: 105px; height: 47px; border: 1px solid white; border-radius: 18px; background-color: #000000; display: flex; align-items: center; justify-content: center"
                 type="button"
-                @click="() => addTodo(props.idx)">
+                @click="() => addTodo(idx)">
                 Add
             </button>
         </div>

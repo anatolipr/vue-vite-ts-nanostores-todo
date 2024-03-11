@@ -9,7 +9,6 @@ export const $todo: WritableAtom<TodoMain> = atom<TodoMain>({
     todoLists: []
 })
 
-
 //***** Lists ******
 
 export function addTodoList(name: string = "Unnamed"): void {
@@ -21,17 +20,19 @@ export function addTodoList(name: string = "Unnamed"): void {
         name,
         todoItems: [],
         newValue:'',
-        stats: getTodoStats([])
+        stats: getTodoStats([]),
+        key:0
     }
 
     const todoLists = $todo.get().todoLists;
     todoLists.push(newTodoList)
     $todo.set({todoLists});
 
+    console.log(todoLists)
+
 }
 
 export function setTodoListNewValue(listIndex: number, newValue: string): void {
-    console.log(newValue)
     const todoLists = $todo.get().todoLists;
     todoLists[listIndex].newValue = newValue;
     $todo.set({todoLists});
@@ -50,6 +51,7 @@ export function setTodoListName(listIndex: number, name: string): void {
    
     const todoLists = $todo.get().todoLists;
     todoLists[listIndex].name = name;
+    todoLists[listIndex].key = Math.random()
     $todo.set({todoLists});
 
 }
@@ -70,12 +72,13 @@ export function addTodo(listIndex: number): void {
         createdTime: getCurrentEpoch(),
         completed: false,
         completedTime: undefined,
-        value: todoLists[listIndex].newValue
+        value: todoLists[listIndex].newValue || 'specify...'
     }
     
     todoLists[listIndex].todoItems.push(newTodoItem);
     todoLists[listIndex].stats = getTodoStats(todoLists[listIndex].todoItems)
     todoLists[listIndex].newValue = ''
+    todoLists[listIndex].key = Math.random()
     $todo.set({todoLists});
 
 }
@@ -90,6 +93,7 @@ export function removeTodoItem(listIndex: number, todoItemIndex: number): void {
     const todoLists = $todo.get().todoLists;
     todoLists[listIndex].todoItems.splice(todoItemIndex, 1);
     todoLists[listIndex].stats = getTodoStats(todoLists[listIndex].todoItems)
+    todoLists[listIndex].key = Math.random()
     $todo.set({todoLists});
     
 }
@@ -98,6 +102,7 @@ export function setTodoItemValue(listIndex: number, todoItemIndex: number, value
     
     const todoLists = $todo.get().todoLists;
     todoLists[listIndex].todoItems[todoItemIndex].value = value;
+    todoLists[listIndex].key = Math.random()
     $todo.set({todoLists});
     
 }
@@ -106,7 +111,11 @@ export function setTodoItemCompleted(listIndex: number, todoItemIndex: number, c
 
     const todoLists = $todo.get().todoLists;
     todoLists[listIndex].todoItems[todoItemIndex].completed = completed;
+    todoLists[listIndex].todoItems[todoItemIndex].completedTime = 
+        completed ? getCurrentEpoch() : undefined;
+
     todoLists[listIndex].stats = getTodoStats(todoLists[listIndex].todoItems)
+    todoLists[listIndex].key = Math.random()
     $todo.set({todoLists});
 
 }
@@ -117,7 +126,7 @@ export function clearTodoItems(listIndex: number): void {
     todoLists[listIndex].todoItems = [];
     todoLists[listIndex].stats = getTodoStats(todoLists[listIndex].todoItems)
     todoLists[listIndex].newValue = ''
-    
+    todoLists[listIndex].key = Math.random()
     $todo.set({todoLists});
 
 }
@@ -174,6 +183,7 @@ export function updateTodoListName(listIndex: number): void {
 
     if (value !== null) {
         todoLists[listIndex].name = value;
+        todoLists[listIndex].key = Math.random()
         $todo.set({todoLists});
     }
 
@@ -189,6 +199,7 @@ export function updateTodoItemName(listIndex: number, todoItemIndex: number): vo
 
     if (value !== null) {
         todoLists[listIndex].todoItems[todoItemIndex].value = value;
+        todoLists[listIndex].key = Math.random()
         $todo.set({todoLists});
     }
 

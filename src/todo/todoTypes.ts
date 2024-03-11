@@ -1,6 +1,7 @@
 
 export type TodoMain = {
-    todoLists: TodoList[]
+    todoLists: TodoList[],
+    key?: number
 }
 
 
@@ -17,6 +18,7 @@ export type TodoList = {
     todoItems:   TodoItem[];
     newValue:    string;
     stats:       TodoStats;
+    key?:        number
 }
 
 export type TodoItem = {
