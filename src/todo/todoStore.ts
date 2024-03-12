@@ -6,7 +6,11 @@ import { getCurrentEpoch } from '../util.js';
 
 
 export const $todo: WritableAtom<TodoMain> = atom<TodoMain>({
-    todoLists: []
+    todoLists: JSON.parse(localStorage.getItem('todoLists')||'[]')
+})
+
+$todo.listen((todo: Readonly<TodoMain>) => {
+    localStorage.setItem('todoLists', JSON.stringify(todo.todoLists))
 })
 
 //***** Lists ******
