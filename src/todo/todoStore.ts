@@ -75,7 +75,7 @@ export function setTodoListName(listIndex: number, name: string): void {
  * @param value - string of the new todo
  * @param listIndex - index of the TODO list
  */
-export async function addTodo(listIndex: number): void {
+export async function addTodo(listIndex: number): Promise<void> {
 
     const todoLists = $todo.get().todoLists;
 
