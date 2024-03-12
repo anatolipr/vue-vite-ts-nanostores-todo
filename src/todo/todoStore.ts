@@ -46,7 +46,9 @@ export function setTodoListNewValue(listIndex: number, newValue: string): void {
 }
 
 export function removeTodoList(listIndex: number) {
-    
+    if (!confirm('are you sure?')) {
+        return
+    }
     const todoLists = $todo.get().todoLists;
     todoLists.splice(listIndex, 1);
     $todo.set({todoLists});
@@ -97,6 +99,10 @@ export function addTodo(listIndex: number): void {
  */
 export function removeTodoItem(listIndex: number, todoItemIndex: number): void {
 
+    if (!confirm('are you sure?')) {
+        return
+    }
+
     const todoLists = $todo.get().todoLists;
     todoLists[listIndex].todoItems.splice(todoItemIndex, 1);
     todoLists[listIndex].stats = getTodoStats(todoLists[listIndex].todoItems)
@@ -128,7 +134,9 @@ export function setTodoItemCompleted(listIndex: number, todoItemIndex: number, c
 }
 
 export function clearTodoItems(listIndex: number): void {
-
+    if (!confirm('are you sure?')) {
+        return
+    }
     const todoLists = $todo.get().todoLists;
     todoLists[listIndex].todoItems = [];
     todoLists[listIndex].stats = getTodoStats(todoLists[listIndex].todoItems)

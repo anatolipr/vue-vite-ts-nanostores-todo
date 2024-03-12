@@ -62,6 +62,7 @@
                 style="height: 47px; flex: 1"
                 class="text-input"
                 type="text"
+                @keydown.enter="addTodo(idx)"
                 @input="(e) => setTodoListNewValue(idx, (<HTMLInputElement>e.target).value)"
                 :value="todo.newValue" />
             <button
