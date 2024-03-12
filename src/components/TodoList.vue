@@ -41,7 +41,10 @@
                 Clear
             </div>
         </div>
-        <div style="overflow: scroll" class="todo-items-container">
+        <div
+            style="overflow: scroll"
+            class="todo-items-container"
+            :id="'todoitems' + idx">
             <div class="todo-line" v-for="(td, tdidx) in todo.todoItems">
                 <input
                     style="width: 33px; height: 34px"
@@ -62,9 +65,10 @@
                 style="height: 47px; flex: 1"
                 class="text-input"
                 type="text"
-                @keydown.enter="addTodo(idx)"
                 @input="(e) => setTodoListNewValue(idx, (<HTMLInputElement>e.target).value)"
-                :value="todo.newValue" />
+                :value="todo.newValue"
+                @keydown.enter="addTodo(idx)"
+                :id="'todoinput' + idx" />
             <button
                 style="width: 105px; height: 47px"
                 class="std-button"

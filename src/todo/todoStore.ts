@@ -4,13 +4,15 @@ import { atom, WritableAtom } from 'nanostores'
 import { v4 as uuidv4 } from 'uuid';
 import { getCurrentEpoch } from '../util.js';
 
+import { nextTick } from "vue";
+
 
 export const $todo: WritableAtom<TodoMain> = atom<TodoMain>({
-    todoLists: JSON.parse(localStorage.getItem('todoLists')||'[]')
+    todoLists: JSON.parse(localStorage?.getItem('todoLists')||'[]')
 })
 
 $todo.listen((todo: Readonly<TodoMain>) => {
-    localStorage.setItem('todoLists', JSON.stringify(todo.todoLists))
+    localStorage?.setItem('todoLists', JSON.stringify(todo.todoLists))
 })
 
 //***** Lists ******
@@ -73,7 +75,7 @@ export function setTodoListName(listIndex: number, name: string): void {
  * @param value - string of the new todo
  * @param listIndex - index of the TODO list
  */
-export function addTodo(listIndex: number): void {
+export async function addTodo(listIndex: number): void {
 
     const todoLists = $todo.get().todoLists;
 
@@ -87,9 +89,17 @@ export function addTodo(listIndex: number): void {
     todoLists[listIndex].todoItems.push(newTodoItem);
     todoLists[listIndex].stats = getTodoStats(todoLists[listIndex].todoItems)
     todoLists[listIndex].newValue = ''
+    
     todoLists[listIndex].key = Math.random()
     $todo.set({todoLists});
 
+    const objDiv = document.getElementById('todoitems' + listIndex)
+    if (objDiv) {
+        await nextTick();
+        objDiv.scrollTop = objDiv.scrollHeight;
+    } 
+
+    document.getElementById('todoinput' + listIndex)?.focus()
 }
 
 /**

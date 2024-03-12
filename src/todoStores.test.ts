@@ -5,6 +5,7 @@ import { $todo, ALL_DONE_LABEL, NOTHING_TODO_LABEL, addTodo, addTodoList, clearT
 import { TodoMain } from './todo/todoTypes.js';
 
 
+global.confirm = () => true
 
 // ***** Lists *****
 
