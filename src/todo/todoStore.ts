@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getCurrentEpoch } from '../util.js';
 
 import { nextTick } from "vue";
+import { doPrompt } from '../components/prompt/prompt.js';
 
 
 export const $todo: WritableAtom<TodoMain> = atom<TodoMain>({
@@ -17,10 +18,14 @@ $todo.listen((todo: Readonly<TodoMain>) => {
 
 //***** Lists ******
 
-export function addTodoList(name: string = "Unnamed", shouldPrompt: boolean = false): void {
+export async function addTodoList(name: string = "Unnamed", shouldPrompt: boolean = false): Promise<void> {
 
     if (shouldPrompt) {
-        name = prompt('List name', name) || name;
+        const input = await doPrompt('List name', name);
+        if (input === undefined) {
+            return;
+        }
+        name = input;
     }
     const newTodoList: TodoList = {
         _id: uuidv4(),
@@ -199,14 +204,14 @@ export function getNumberOfCompletedTodos(todos: TodoItem[]): number {
 
 //User input
 
-export function updateTodoListName(listIndex: number): void {
+export async function updateTodoListName(listIndex: number): Promise<void> {
     const todoLists = $todo.get().todoLists;
     
-    
-    const value: string | null = 
-        prompt('New list name', todoLists[listIndex].name);
-
-    if (value !== null) {
+    const value: string | undefined = 
+        await doPrompt('New list name', todoLists[listIndex].name);
+        
+        
+    if (value !== undefined) {
         todoLists[listIndex].name = value;
         todoLists[listIndex].key = Math.random()
         $todo.set({todoLists});
@@ -214,15 +219,14 @@ export function updateTodoListName(listIndex: number): void {
 
 }
 
-export function updateTodoItemName(listIndex: number, todoItemIndex: number): void {
+export async function updateTodoItemName(listIndex: number, todoItemIndex: number): Promise<void> {
 
     const todoLists = $todo.get().todoLists;
     
-    
-    const value: string | null = 
-        prompt('TODO value', todoLists[listIndex].todoItems[todoItemIndex].value);
+    const value: string | undefined = 
+        await doPrompt('TODO value', todoLists[listIndex].todoItems[todoItemIndex].value);
 
-    if (value !== null) {
+    if (value !== undefined) {
         todoLists[listIndex].todoItems[todoItemIndex].value = value;
         todoLists[listIndex].key = Math.random()
         $todo.set({todoLists});

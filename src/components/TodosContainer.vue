@@ -4,6 +4,7 @@
     import { TodoMain } from '../todo/todoTypes';
     import TodoList from './TodoList.vue';
     import {useStore} from '@nanostores/vue';
+    import SimplePrompt from './prompt/SimplePrompt.vue'
 
     const todo: DeepReadonly<Ref<TodoMain>>  = useStore($todo)
 </script>
@@ -21,7 +22,9 @@
             style="width: 69px; height: 68px"
             class="big-plus"
             @click="addTodoList('Unnamed', true)"></div></div
-></template>
+>
+<simple-prompt/>
+</template>
 
 <style>
     .big-plus {
@@ -42,4 +45,4 @@
     }
 
     * {box-sizing: border-box}
-</style>
+</style>./prompt/SimplePrompt.vue
