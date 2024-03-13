@@ -10,13 +10,15 @@
   },
   "dependencies": {
     "@nanostores/vue": "^0.10.0",
-    "nanostores": "^0.9.3",
+    "nanostores": "^0.9.5",
     "uuid": "^9.0.1",
     "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@nanostores/logger": "^0.2.4",
     "@types/uuid": "^9.0.8",
     "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/devtools-api": "^6.6.1",
     "jsdom": "^24.0.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
