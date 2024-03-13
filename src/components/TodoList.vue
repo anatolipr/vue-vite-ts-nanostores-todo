@@ -47,7 +47,7 @@
             :id="'todoitems' + idx">
             <div class="todo-line" v-for="(td, tdidx) in todo.todoItems">
                 <input
-                    style="width: 33px; height: 34px"
+                    style="width: 34px; height: 34px; flex-shrink: 0"
                     type="checkbox"
                     @input="(e) => setTodoItemCompleted(idx, tdidx, (<HTMLInputElement>e.target).checked)"
                     :checked="td.completed" />
