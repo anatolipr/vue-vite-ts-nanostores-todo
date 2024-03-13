@@ -51,7 +51,9 @@
                     type="checkbox"
                     @input="(e) => setTodoItemCompleted(idx, tdidx, (<HTMLInputElement>e.target).checked)"
                     :checked="td.completed" />
-                <div style="flex: 1" @click="updateTodoItemName(idx, tdidx)">
+                <div
+                    style="flex: 1; overflow-wrap: anywhere; cursor: text"
+                    @click="updateTodoItemName(idx, tdidx)">
                     {{ td.value }}
                 </div>
                 <div
@@ -91,7 +93,8 @@
     }
 
     .trash-icon {
-      content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 21 21'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' d='M5.5 4.5h10v12a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2zm5-2a2 2 0 0 1 1.995 1.85l.005.15h-4a2 2 0 0 1 2-2m-7 2h14m-9 3v8m4-8v8'/%3E%3C/svg%3E")
+      content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 21 21'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' d='M5.5 4.5h10v12a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2zm5-2a2 2 0 0 1 1.995 1.85l.005.15h-4a2 2 0 0 1 2-2m-7 2h14m-9 3v8m4-8v8'/%3E%3C/svg%3E");
+      cursor: pointer;
     }
 
     .todo-line {
@@ -100,7 +103,9 @@
       align-items: center;
       justify-content: center
     }
-
+    .todo-line:hover {
+      background-color: #343434;
+    }
     .list-heading {
       display: flex;
       align-items: center;
