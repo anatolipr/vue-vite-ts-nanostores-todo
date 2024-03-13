@@ -22,7 +22,7 @@ export async function addTodoList(name: string = "Unnamed", shouldPrompt: boolea
 
     if (shouldPrompt) {
         const input = await doPrompt('List name', name);
-        if (input === undefined) {
+        if (input === undefined || input.trim() === '') {
             return;
         }
         name = input;
@@ -211,7 +211,7 @@ export async function updateTodoListName(listIndex: number): Promise<void> {
         await doPrompt('New list name', todoLists[listIndex].name);
         
         
-    if (value !== undefined) {
+    if (value !== undefined && value.trim() !== '') {
         todoLists[listIndex].name = value;
         todoLists[listIndex].key = Math.random()
         $todo.set({todoLists});
@@ -226,7 +226,7 @@ export async function updateTodoItemName(listIndex: number, todoItemIndex: numbe
     const value: string | undefined = 
         await doPrompt('TODO value', todoLists[listIndex].todoItems[todoItemIndex].value);
 
-    if (value !== undefined) {
+    if (value !== undefined && value.trim() !== '') {
         todoLists[listIndex].todoItems[todoItemIndex].value = value;
         todoLists[listIndex].key = Math.random()
         $todo.set({todoLists});
